@@ -1,6 +1,10 @@
 {
-  "name": "cm-chessboard",
-  "version": "8.5.0",
+  "name": "@chesslablab/cmblab",
+  "type": "module",
+  "module": "./src/index.js",
+  "browser": "./src/index.js",
+  "version": "0.0.1",
+  "license": "MIT",
   "description": "A JavaScript chessboard which is lightweight, ES6 module based, responsive, SVG rendered and without dependencies.",
   "keywords": [
     "chess",
@@ -12,23 +16,30 @@
     "module",
     "widget"
   ],
-  "type": "module",
-  "module": "./src/Chessboard.js",
-  "browser": "./src/Chessboard.js",
-  "scripts": {
-    "test": "tput setaf 4;echo 'Run test/index.html in your browser for unit testing.'; echo ''; exit 0"
-  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/shaack/cm-chessboard.git"
+    "url": "git+https://github.com/chesslablab/cmblab.git"
   },
   "author": "Stefan Haack (shaack.com)",
-  "license": "MIT",
+  "contributors" : [
+    {
+      "name": "Stefan Haack",
+      "url": "https://shaack.com/"
+    },
+    {
+      "name": "Jorge Bassagana"
+    }
+  ],
   "bugs": {
-    "url": "https://github.com/shaack/cm-chessboard/issues"
+    "url": "https://github.com/chesslablab/cmblab/issues"
   },
-  "homepage": "https://github.com/shaack/cm-chessboard#readme",
+  "homepage": "https://github.com/chesslablab/cmblab#readme",
   "devDependencies": {
     "teevi": "^2.2.4"
+  },
+  "main": "index.js",
+  "directories": {
+    "example": "examples",
+    "test": "test"
   }
 }
