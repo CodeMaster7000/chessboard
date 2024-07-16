@@ -3,7 +3,7 @@
   "type": "module",
   "module": "./src/index.js",
   "browser": "./src/index.js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "description": "A JavaScript chessboard which is lightweight, ES6 module based, responsive, SVG rendered and without dependencies.",
   "keywords": [
