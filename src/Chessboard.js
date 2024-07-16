@@ -33,8 +33,8 @@ export const BORDER_TYPE = {
     frame: "frame" // wide border with coordinates in it
 }
 export const PIECE = {
-    wp: "wp", wb: "wb", wn: "wn", wr: "wr", wq: "wq", wk: "wk",
-    bp: "bp", bb: "bb", bn: "bn", br: "br", bq: "bq", bk: "bk"
+    wp: "wp", wb: "wb", wn: "wn", wr: "wr", wq: "wq", wk: "wk", wm: "wm",
+    bp: "bp", bb: "bb", bn: "bn", br: "br", bq: "bq", bk: "bk", bm: "bm"
 }
 
 export const PIECES_FILE_TYPE = {
