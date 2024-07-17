@@ -21,14 +21,9 @@
     "url": "git+https://github.com/chesslablab/chessboard.git"
   },
   "author": "Stefan Haack (shaack.com)",
-  "contributors" : [
-    {
-      "name": "Stefan Haack",
-      "url": "https://shaack.com/"
-    },
-    {
-      "name": "Jorge Bassagana"
-    }
+  "contributors": [
+    "Stefan Haack (https://shaack.com/)",
+    "Jorge Bassagana"
   ],
   "bugs": {
     "url": "https://github.com/chesslablab/chessboard/issues"
@@ -41,5 +36,8 @@
   "directories": {
     "example": "examples",
     "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   }
 }
