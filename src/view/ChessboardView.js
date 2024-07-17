@@ -5,11 +5,37 @@
  */
 
 import {VisualMoveInput} from "./VisualMoveInput.js"
-import {BORDER_TYPE, COLOR, INPUT_EVENT_TYPE} from "../Chessboard.js"
 import {Position} from "../model/Position.js"
 import {EXTENSION_POINT} from "../model/Extension.js"
 import {Svg} from "../lib/Svg.js"
 import {Utils} from "../lib/Utils.js"
+
+export const COLOR = {
+    white: "w",
+    black: "b"
+}
+export const INPUT_EVENT_TYPE = {
+    moveInputStarted: "moveInputStarted",
+    movingOverSquare: "movingOverSquare", // while dragging or hover after click
+    validateMoveInput: "validateMoveInput",
+    moveInputCanceled: "moveInputCanceled",
+    moveInputFinished: "moveInputFinished"
+}
+export const POINTER_EVENTS = {
+    pointercancel: "pointercancel",
+    pointerdown: "pointerdown",
+    pointerenter: "pointerenter",
+    pointerleave: "pointerleave",
+    pointermove: "pointermove",
+    pointerout: "pointerout",
+    pointerover: "pointerover",
+    pointerup: "pointerup"
+}
+export const BORDER_TYPE = {
+    none: "none", // no border
+    thin: "thin", // thin border
+    frame: "frame" // wide border with coordinates in it
+}
 
 export class ChessboardView {
     constructor(chessboard) {
@@ -35,7 +61,6 @@ export class ChessboardView {
         }
         this.positionsAnimationTask = Promise.resolve()
         this.pointerDownListener = this.pointerDownHandler.bind(this)
-        this.pointerDownListener = this.pointerDownHandler.bind(this)
         this.container.addEventListener("mousedown", this.pointerDownListener)
         this.container.addEventListener("touchstart", this.pointerDownListener, {passive: false})
         this.createSvgAndGroups()
@@ -57,6 +82,7 @@ export class ChessboardView {
         this.chessboard.context.removeEventListener("mousedown", this.pointerDownListener)
         this.chessboard.context.removeEventListener("touchstart", this.pointerDownListener)
         Svg.removeElement(this.svg)
+        this.container.remove()
     }
 
     // Sprite //
@@ -119,7 +145,7 @@ export class ChessboardView {
     }
 
     handleResize() {
-        this.container.style.width = this.chessboard.context.clientWidth + "px"
+        this.container.style.width = (this.chessboard.context.clientWidth) + "px"
         this.container.style.height = (this.chessboard.context.clientWidth * this.chessboard.props.style.aspectRatio) + "px"
         if (this.container.clientWidth !== this.width || this.container.clientHeight !== this.height) {
             this.updateMetrics()

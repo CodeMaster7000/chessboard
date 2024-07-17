@@ -71,7 +71,7 @@ export class Position {
         return parts.join("/")
     }
 
-    getPieces(sortBy = ['k', 'q', 'r', 'b', 'n', 'p']) {
+    getPieces(pieceColor = undefined, pieceType = undefined, sortBy = ['k', 'q', 'r', 'b', 'n', 'p']) {
         const pieces = []
         const sort = (a, b) => {
             return sortBy.indexOf(a.name) - sortBy.indexOf(b.name)
@@ -79,10 +79,18 @@ export class Position {
         for (let i = 0; i < 64; i++) {
             const piece = this.squares[i]
             if (piece) {
+                const type = piece.charAt(1)
+                const color = piece.charAt(0)
+                const square = Position.indexToSquare(i)
+                if(pieceType && pieceType !== type || pieceColor && pieceColor !== color) {
+                    continue
+                }
                 pieces.push({
-                    name: piece.charAt(1),
-                    color: piece.charAt(0),
-                    position: Position.indexToSquare(i)
+                    name: type, // deprecated, use type
+                    type: type,
+                    color: color,
+                    position: square, // deprecated, use square
+                    square: square
                 })
             }
         }
@@ -128,6 +136,10 @@ export class Position {
         const file = String.fromCharCode(coordinates[0] + 97)
         const rank = String.fromCharCode(coordinates[1] + 49)
         return file + rank
+    }
+
+    toString() {
+        return this.getFen()
     }
 
     clone() {

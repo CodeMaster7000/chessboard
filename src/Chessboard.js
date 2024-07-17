@@ -8,39 +8,23 @@ import {ChessboardState} from "./model/ChessboardState.js"
 import {FEN, Position} from "./model/Position.js"
 import {PositionAnimationsQueue} from "./view/PositionAnimationsQueue.js"
 import {EXTENSION_POINT} from "./model/Extension.js"
-import {ChessboardView} from "./view/ChessboardView.js"
+import {ChessboardView, COLOR, INPUT_EVENT_TYPE, BORDER_TYPE, POINTER_EVENTS} from "./view/ChessboardView.js"
 import {Utils} from "./lib/Utils.js"
 
-export const COLOR = {
-    white: "w",
-    black: "b"
-}
-export const INPUT_EVENT_TYPE = {
-    moveInputStarted: "moveInputStarted",
-    movingOverSquare: "movingOverSquare", // while dragging or hover after click
-    validateMoveInput: "validateMoveInput",
-    moveInputCanceled: "moveInputCanceled",
-    moveInputFinished: "moveInputFinished"
-}
-/** @deprecated */
-export const SQUARE_SELECT_TYPE = {
-    primary: "primary",
-    secondary: "secondary"
-}
-export const BORDER_TYPE = {
-    none: "none", // no border
-    thin: "thin", // thin border
-    frame: "frame" // wide border with coordinates in it
-}
 export const PIECE = {
     wp: "wp", wb: "wb", wn: "wn", wr: "wr", wq: "wq", wk: "wk", wm: "wm",
     bp: "bp", bb: "bb", bn: "bn", br: "br", bq: "bq", bk: "bk", bm: "bm"
 }
-
+export const PIECE_TYPE = {
+    pawn: "p", knight: "n", bishop: "b", rook: "r", queen: "q", king: "k"
+}
 export const PIECES_FILE_TYPE = {
     svgSprite: "svgSprite"
 }
-
+export {COLOR}
+export {INPUT_EVENT_TYPE}
+export {POINTER_EVENTS}
+export {BORDER_TYPE}
 export {FEN}
 
 export class Chessboard {
@@ -147,8 +131,40 @@ export class Chessboard {
         this.view.disableMoveInput()
     }
 
+    isMoveInputEnabled() {
+        return this.state.inputWhiteEnabled || this.state.inputBlackEnabled
+    }
+
+    enableSquareSelect(eventType = POINTER_EVENTS.pointerdown, eventHandler) {
+        if (!this.squareSelectListener) {
+            this.squareSelectListener = function (e) {
+                const square = e.target.getAttribute("data-square")
+                eventHandler({
+                    eventType: e.type,
+                    event: e,
+                    chessboard: this,
+                    square: square
+                })
+            }
+        }
+        this.context.addEventListener(eventType, this.squareSelectListener)
+        this.state.squareSelectEnabled = true
+        this.view.visualizeInputState()
+    }
+
+    disableSquareSelect(eventType) {
+        this.context.removeEventListener(eventType, this.squareSelectListener)
+        this.squareSelectListener = undefined
+        this.state.squareSelectEnabled = false
+        this.view.visualizeInputState()
+    }
+
+    isSquareSelectEnabled() {
+        return this.state.squareSelectEnabled
+    }
+
     addExtension(extensionClass, props) {
-        if(this.getExtension(extensionClass)) {
+        if (this.getExtension(extensionClass)) {
             throw Error("extension \"" + extensionClass.name + "\" already added")
         }
         this.extensions.push(new extensionClass(this, props))
