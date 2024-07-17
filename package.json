@@ -1,5 +1,5 @@
 {
-  "name": "@chesslablab/cmblab",
+  "name": "@chesslablab/chessboard",
   "type": "module",
   "module": "./src/index.js",
   "browser": "./src/index.js",
@@ -18,7 +18,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chesslablab/cmblab.git"
+    "url": "git+https://github.com/chesslablab/chessboard.git"
   },
   "author": "Stefan Haack (shaack.com)",
   "contributors" : [
@@ -31,9 +31,9 @@
     }
   ],
   "bugs": {
-    "url": "https://github.com/chesslablab/cmblab/issues"
+    "url": "https://github.com/chesslablab/chessboard/issues"
   },
-  "homepage": "https://github.com/chesslablab/cmblab#readme",
+  "homepage": "https://github.com/chesslablab/chessboard#readme",
   "devDependencies": {
     "teevi": "^2.2.4"
   },
